@@ -1,0 +1,1 @@
+{"businessDate": "2020-07-27", "executeSql": "insert into a_tb select * from b_tb where b_tb.business_date=${date}", "prepareSql": "delete from a_tb where a_tb.business_date=${date}"}

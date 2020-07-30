@@ -1,6 +1,8 @@
 package com.xxl.job.executor.core.config;
 
 import com.xxl.job.core.executor.impl.XxlJobSpringExecutor;
+import com.xxl.job.executor.service.jobhandler.ExecuteSqlJobHandler;
+import com.xxl.job.executor.service.jobhandler.PrepareSqlJobHandler;
 import com.xxl.job.executor.service.jobhandler.SqlJobHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,11 +47,19 @@ public class XxlJobConfig {
     @Autowired
     private SqlJobHandler sqlJobHandler;
 
+    @Autowired
+    private PrepareSqlJobHandler prepareSqlJobHandler;
+
+    @Autowired
+    private ExecuteSqlJobHandler executeSqlJobHandler;
+
 
     @Bean
     public XxlJobSpringExecutor xxlJobExecutor() {
         logger.info(">>>>>>>>>>> xxl-job config init.");
         XxlJobSpringExecutor.registJobHandler("sqlJobHandler", sqlJobHandler);
+        XxlJobSpringExecutor.registJobHandler("prepareSqlJobHandler", prepareSqlJobHandler);
+        XxlJobSpringExecutor.registJobHandler("executeSqlJobHandler", executeSqlJobHandler);
         XxlJobSpringExecutor xxlJobSpringExecutor = new XxlJobSpringExecutor();
         xxlJobSpringExecutor.setAdminAddresses(adminAddresses);
         xxlJobSpringExecutor.setAppname(appname);
